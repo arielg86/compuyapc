@@ -1,0 +1,23 @@
+COMPUYA - CATÁLOGO OFFLINE
+============================
+
+Instrucciones de uso:
+1. Extrae todos los archivos de este ZIP en una carpeta de tu PC
+2. Abre el archivo "index.html" con tu navegador favorito (Chrome, Firefox, Edge, etc.)
+3. ¡Listo! Ya puedes navegar por el catálogo completo
+
+Características:
+- Catálogo completo con todos los productos
+- Vista detallada de cada producto
+- Personalización de combos (SSD y monitor)
+- Cálculo automático de precios
+- Integración con WhatsApp para consultas
+- Información de garantía y beneficios
+
+Nota: Para usar la función de WhatsApp necesitarás conexión a internet.
+
+Todas las imágenes están incluidas en la carpeta "images".
+
+Versión offline creada el 1/12/2025
+Compuya - Tu tienda de confianza
+WhatsApp: +54 9 11 5998-0227

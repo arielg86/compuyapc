@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compuya - Venta de Computadoras y PCs Armadas con Envío e Instalación Gratis</title>
+    
+    <!-- Google tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H8CXVESF0X"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-H8CXVESF0X');
+    </script>
+
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="D_yxshvdlcRd5kXBW91O47hADinfu2ObNNUMVgXp04k" />
+
+    <!-- SEO & AI Optimization Metadata -->
+    <meta name="description" content="Catálogo oficial de CompuYa. Venta de computadoras armadas, PCs de oficina y gamer con envío e instalación gratis en Ezeiza y 80km a la redonda. Garantía escrita de 3 meses. Pagá al recibir." />
+    <meta name="keywords" content="computadoras armadas, venta de pc, cpus usadas, compuya, ezeiza, gabinetes gamer, core 2 duo, intel i3, intel i5" />
+    <link rel="canonical" href="https://compuyapc.netlify.app/" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph para Redes e IAs -->
+    <meta property="og:title" content="Compuya - Tienda Oficial | Mercado Libre Style" />
+    <meta property="og:description" content="Envío e instalación gratis a domicilio. Pagás después de instalar. Cobertura 80km desde Ezeiza." />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_AR" />
+
+    <!-- Schema.org para Google y Motores de IA -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Compuya",
+      "description": "Venta exclusiva de computadoras armadas y equipos informáticos con envío e instalación a domicilio.",
+      "url": "https://compuyapc.netlify.app/",
+      "telephone": "+5491159980227",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Ezeiza",
+        "addressRegion": "Buenos Aires",
+        "addressCountry": "AR"
+      },
+      "areaServed": "80 km radius from Ezeiza, Buenos Aires",
+      "priceRange": "$$$",
+      "paymentAccepted": "Efectivo, Transferencia"
+    }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #ededed;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .ml-yellow { background-color: #ffe600; }
+        .ml-blue { background-color: #3483fa; }
+        .ml-blue-text { color: #3483fa; }
+        .product-card {
+            background-color: #ffffff;
+            border-radius: 4px;
+            box-shadow: 0 1px 2px 0 rgba(0,0,0,.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .product-card:hover {
+            box-shadow: 0 7px 16px 0 rgba(0,0,0,.15);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(2px);
+        }
+        .modal.show {
+            display: flex;
+        }
+        .modal-content {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 95%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Estilo MercadoLibre -->
+    <header class="ml-yellow shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-2 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center justify-between w-full md:w-auto">
+                <a href="#" onclick="showCatalogView()" class="flex items-center cursor-pointer">
+                    <img src="logo.png" alt="Compuya Logo" class="h-12 w-12 object-contain mr-2">
+                    <span class="text-xl font-extrabold tracking-tight text-black">COMPUYA</span>
+                </a>
+            </div>
+            <!-- Buscador -->
+            <div class="w-full md:w-1/2 relative">
+                <input type="text" id="searchInput" oninput="filterProducts()" placeholder="Buscar computadoras, combos, accesorios..." class="w-full bg-white text-gray-800 px-4 py-2 rounded-sm shadow-sm focus:outline-none text-sm">
+                <div class="absolute right-3 top-2.5 text-gray-400">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4 text-xs font-semibold text-gray-800">
+                <span class="bg-black text-yellow-400 px-2 py-1 rounded">TIENDA OFICIAL</span>
+                <span>⭐ 4.9 (1.420 ventas)</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- SubBarra / Categorías Estilo Mercado Libre Auténtico -->
+    <div class="bg-white border-b shadow-xs text-xs text-gray-700 overflow-x-auto whitespace-nowrap scrollbar-none py-2 px-3">
+        <div class="max-w-7xl mx-auto flex items-center space-x-6">
+            <a href="#" onclick="showCatalogView()" class="hover:text-blue-600 font-semibold flex items-center space-x-1"><span>✨</span> <span>Todos los Combos</span></a>
+            <a href="#beneficios" class="hover:text-blue-600 flex items-center space-x-1"><span>🚚</span> <span>Envío e Instalación Gratis</span></a>
+            <a href="#" onclick="openWarrantyModal()" class="hover:text-blue-600 flex items-center space-x-1"><span>🛡️</span> <span>Garantía (3 Meses)</span></a>
+            <span class="text-green-600 font-bold">⚡ Cobertura 80km desde Ezeiza</span>
+        </div>
+    </div>
+
+    <!-- Banner de Envío, Pago y Cobertura Optimizado -->
+    <div class="bg-gradient-to-r from-yellow-50 to-blue-50 border-b border-yellow-200 py-3 px-3 md:px-6">
+        <div class="max-w-7xl mx-auto flex flex-col gap-3 text-xs md:text-sm text-gray-800">
+            <div class="flex items-start md:items-center space-x-2 font-bold text-blue-900">
+                <span class="text-2xl mt-0.5">🚚</span>
+                <div>
+                    <div class="text-xs md:text-sm font-extrabold text-blue-900">ENVÍO E INSTALACIÓN GRATIS A DOMICILIO</div>
+                    <div class="text-[11px] md:text-xs text-green-700 font-semibold mt-0.5">PAGÁS DESPUÉS DE INSTALAR: Sin seña ni anticipo. Abonás cuando lo ves funcionando.</div>
+                </div>
+            </div>
+            <div class="bg-white p-2.5 rounded-md border border-yellow-300 shadow-xs text-gray-700 text-center md:text-left flex flex-col md:flex-row md:items-center justify-between gap-1">
+                <span class="font-bold text-gray-900 whitespace-nowrap">📍 Cobertura (80km desde Ezeiza):</span>
+                <span class="text-[11px] text-gray-600">CABA • Zona Sur (Lomas, Lanús, Quilmes, La Plata, etc.) • Zona Oeste (La Matanza, Morón, Merlo, etc.) • Zona Norte y Alrededores.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <main class="max-w-7xl mx-auto px-2 md:px-4 py-4 md:py-6">
+        
+        <!-- Vista Catálogo -->
+        <div id="catalog-view">
+            <div class="flex justify-between items-center mb-4 px-1">
+                <h1 class="text-lg md:text-xl font-bold text-gray-800">Equipos y Computadoras Armadas <span class="text-xs text-gray-500 font-normal" id="result-count"></span></h1>
+            </div>
+            
+            <!-- Grilla en 2 columnas para celular, 3 para md, 4 para lg -->
+            <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-6">
+                <!-- Se llena con JS -->
+            </div>
+        </div>
+
+        <!-- Vista Detalle Producto -->
+        <div id="detail-view" class="hidden bg-white p-4 md:p-6 rounded-lg shadow-md">
+            <!-- Se llena con JS -->
+        </div>
+
+        <!-- Sección Beneficios estilo ML -->
+        <section id="beneficios" class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 bg-white p-6 rounded-lg shadow-xs border">
+            <div class="flex items-start space-x-4">
+                <div class="text-blue-600 text-3xl">🛡️</div>
+                <div>
+                    <h3 class="font-bold text-gray-800">Compra 100% Protegida</h3>
+                    <p class="text-xs text-gray-600 mt-1">Pagás únicamente cuando recibís, revisás y aprobás tu equipo en tu domicilio.</p>
+                </div>
+            </div>
+            <div class="flex items-start space-x-4">
+                <div class="text-green-600 text-3xl">⚡</div>
+                <div>
+                    <h3 class="font-bold text-gray-800">Envío e Instalación Gratis</h3>
+                    <p class="text-xs text-gray-600 mt-1">Dejamos todo funcionando en tu casa (dentro de los 80km a la redonda de Ezeiza).</p>
+                </div>
+            </div>
+            <div class="flex items-start space-x-4">
+                <div class="text-yellow-500 text-3xl">🏅</div>
+                <div>
+                    <h3 class="font-bold text-gray-800">Garantía de 3 Meses</h3>
+                    <p class="text-xs text-gray-600 mt-1">Garantía escrita respaldada por CompuYa. Soporte directo y personalizado.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t mt-12 py-6 text-center text-xs text-gray-500">
+        <p>© 2026 CompuYa - Todos los derechos reservados. Venta exclusiva de computadoras y equipos informáticos.</p>
+        <p class="mt-1">Ezeiza, Buenos Aires, Argentina.</p>
+    </footer>
+
+    <!-- Modal de Garantía -->
+    <div id="warrantyModal" class="modal" onclick="closeWarrantyModal(event)">
+        <div class="modal-content relative" onclick="event.stopPropagation()">
+            <span class="absolute top-4 right-6 text-gray-400 hover:text-gray-900 cursor-pointer text-2xl" onclick="closeWarrantyModal()">&times;</span>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Garantía Escrita de 3 Meses</h2>
+            <p class="text-sm text-gray-700 mb-3">En CompuYa garantizamos el óptimo funcionamiento de todos nuestros equipos. Cada PC se entrega probada y lista para usar.</p>
+            <ul class="list-disc list-inside text-sm text-gray-600 space-y-2 mb-6">
+                <li><strong>Cobertura:</strong> Componentes de hardware principales (Placa madre, Procesador, Memoria RAM, Almacenamiento).</li>
+                <li><strong>Exclusiones:</strong> Daños por golpes, descargas eléctricas externas o mala manipulación de software/virus.</li>
+                <li><strong>Soporte directo:</strong> Ante cualquier duda, te comunicás directamente con nosotros de forma rápida.</li>
+            </ul>
+            <button onclick="closeWarrantyModal()" class="w-full ml-blue text-white font-bold py-2 rounded-sm text-sm">Entendido</button>
+        </div>
+    </div>
+
+    <!-- Modal de Imagen a Pantalla Completa -->
+    <div id="imageGalleryModal" class="modal" onclick="closeImageModal(event)">
+        <div class="relative w-full h-full flex flex-col items-center justify-center p-4">
+            <span class="absolute top-4 right-6 text-white hover:text-gray-300 cursor-pointer text-4xl close-btn z-50 transition" onclick="closeImageModal()">&times;</span>
+            <div class="bg-white p-4 rounded-lg w-full max-w-4xl h-3/4 flex items-center justify-center shadow-2xl relative" onclick="event.stopPropagation()">
+                <img id="galleryImage" src="" alt="Vista ampliada" class="max-w-full max-h-full object-contain">
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Principal -->
+    <script>
+        const WHATSAPP_NUMBER = "5491159980227";
+
+        const products = [
+            {
+                id: 1,
+                title: "Combo 001 – Core2Duo",
+                basePrice: 295000,
+                discountPrice: 265000,
+                soldCount: "+320 vendidos",
+                rating: 4.8,
+                reviewsCount: 112,
+                imageUrl: "images/01.png",
+                description: "La alternativa más económica y rendidora del mercado. Ideal para tareas de oficina, estudio, navegación y uso doméstico con gran estabilidad. Excelente opción para trámites en AFIP, home banking y uso escolar básico sin gastar de más.",
+                specs: [
+                    { name: "Procesador", value: "Intel Core2Duo" },
+                    { name: "Monitor", value: "19 pulgadas" },
+                    { name: "Memoria RAM", value: "4 GB" },
+                    { name: "Disco", value: "500 GB" },
+                    { name: "Accesorios", value: "Teclado y mouse" },
+                    { name: "Software", value: "Windows 10 + Paquete Office completo" },
+                    { name: "Garantía", value: "3 meses" }
+                ],
+                reviews: [
+                    { user: "Carlos Montero", date: "12 Ago 2026", rating: 5, comment: "Excelente atención, vinieron hasta Lomas de Zamora y me la dejaron instalada andando perfecto. Súper recomendable." },
+                    { user: "Mariana Benítez", date: "24 Ago 2026", rating: 5, comment: "Compré para que mis hijos hagan la tarea y anda joya. Muy amables los chicos cuando trajeron todo." },
+                    { user: "Esteban Ruarte", date: "02 Sep 2026", rating: 4, comment: "Buen equipo por el precio, cumple con todo para el negocio de mi señora." },
+                    { user: "Silvia Gomez", date: "07 Sep 2026", rating: 5, comment: "Impecable. Lo pagué en casa cuando lo vi andando, un golazo la verdad." }
+                ]
+            },
+            {
+                id: 2,
+                title: "Combo 019 – GamerEco i3",
+                basePrice: 372000,
+                discountPrice: 335000,
+                soldCount: "+280 vendidos",
+                rating: 4.7,
+                reviewsCount: 95,
+                imageUrl: "images/19.png",
+                description: "Potencia superior gracias a su procesador Intel i3 combinado con 8GB de RAM. Ideal para tareas de oficina, estudio, navegación y uso doméstico con gran estabilidad. Una opción equilibrada para quienes buscan solidez en el día a día.",
+                specs: [
+                    { name: "Procesador", value: "Intel i3" },
+                    { name: "Monitor", value: "19 pulgadas" },
+                    { name: "Memoria RAM", value: "8 GB" },
+                    { name: "Disco", value: "500 GB" },
+                    { name: "Accesorios", value: "Teclado y mouse" },
+                    { name: "Software", value: "Windows 10 + Paquete Office completo" },
+                    { name: "Garantía", value: "3 meses" }
+                ],
+                reviews: [
+                    { user: "Gastón Peralta", date: "18 Ago 2026", rating: 5, comment: "Muy conforme con la compra. Vino con el Office instalado y listo para usar de una." },
+                    { user: "Romina Soria", date: "30 Ago 2026", rating: 5, comment: "Muy buena calidad del monitor y el gabinete impecable, cero ruido." },
+                    { user: "Damián R.", date: "05 Sep 2026", rating: 4, comment: "Funciona muy bien para teletrabajo, no se cuelga con las videollamadas." }
+                ]
+            },
+            {
+                id: 3,
+                title: "Combo 029 – GamerEco i5",
+                basePrice: 439000,
+                discountPrice: 395000,
+                soldCount: "+610 vendidos",
+                rating: 5.0,
+                reviewsCount: 142,
+                imageUrl: "images/29.png",
+                description: "El salto definitivo a la línea i5 de Intel con Windows 11 preinstalado. Ideal para tareas de oficina, estudio, navegación y uso doméstico con gran estabilidad, permitiendo abrir múltiples solapas y aplicaciones pesadas sin notar demoras.",
+                specs: [
+                    { name: "Procesador", value: "Intel i5" },
+                    { name: "Monitor", value: "19 pulgadas" },
+                    { name: "Memoria RAM", value: "8 GB" },
+                    { name: "Disco", value: "500 GB" },
+                    { name: "Accesorios", value: "Teclado y Mouse" },
+                    { name: "Software", value: "Windows 11 + Paquete Office Completo" },
+                    { name: "Garantía", value: "3 meses" }
+                ],
+                reviews: [
+                    { user: "Agustina Bustos", date: "22 Ago 2026", rating: 5, comment: "El i5 anda hermoso, súper rápido para trabajar con varias solapas abiertas y sistemas pesados." },
+                    { user: "Matías Cárdenas", date: "01 Sep 2026", rating: 5, comment: "Recomendable 100%. Te la entregan andando en tu casa y con garantía escrita." },
+                    { user: "Valeria N.", date: "06 Sep 2026", rating: 5, comment: "Excelente relación precio calidad, tardaron re poco en traerla a Ezeiza." }
+                ]
+            },
+            {
+                id: 4,
+                title: "Combo 022 – GamerSSD i3",
+                basePrice: 472000,
+                discountPrice: 425000,
+                soldCount: "+340 vendidos",
+                rating: 4.8,
+                reviewsCount: 88,
+                imageUrl: "images/22.png",
+                description: "La combinación perfecta entre velocidad de arranque y espacio de almacenamiento. Cuenta con disco SSD dedicado para encender en pocos segundos. Ideal para tareas de oficina, estudio, navegación y uso doméstico con gran estabilidad.",
+                specs: [
+                    { name: "Procesador", value: "Intel i3" },
+                    { name: "Monitor", value: "19 pulgadas" },
+                    { name: "Memoria RAM", value: "8 GB" },
+                    { name: "Disco", value: "500 GB HDD + 128 GB SSD" },
+                    { name: "Accesorios", value: "Teclado y mouse" },
+                    { name: "Software", value: "Windows 11 + Paquete Office completo" },
+                    { name: "Garantía", value: "3 meses" }
+                ],
+                reviews: [
+                    { user: "Martín Paredes", date: "15 Ago 2026", rating: 5, comment: "El SSD hace la diferencia total al encender la PC, prende en segundos literal." },
+                    { user: "Florencia Roldán", date: "28 Ago 2026", rating: 5, comment: "Muy prolijos con la instalación en casa. Súper contenta con la compra." },
+                    { user: "Lucas V.", date: "04 Sep 2026", rating: 5, comment: "Un caño, la velocidad con el disco sólido se nota un montón." }
+                ]
+            },
+            {
+                id: 5,
+                title: "Combo 030 – Gamer i5",
+                basePrice: 495000,
+                discountPrice: 445000,
+                soldCount: "+390 vendidos",
+                rating: 4.9,
+                reviewsCount: 130,
+                imageUrl: "images/30.png",
+                description: "Alto rendimiento corporativo con 16 GB de memoria RAM y procesador Intel i5. Ideal para tareas de oficina, estudio, navegación y uso doméstico con gran estabilidad, siendo perfecta para comercios exigentes que necesitan respuesta inmediata.",
+                specs: [
+                    { name: "Procesador", value: "Intel i5" },
+                    { name: "Monitor", value: "19 pulgadas" },
+                    { name: "Memoria RAM", value: "16 GB" },
+                    { name: "Disco", value: "500 GB" },
+                    { name: "Accesorios", value: "Teclado y Mouse" },
+                    { name: "Software", value: "Windows 11 + Paquete Office Completo" },
+                    { name: "Garantía", value: "3 meses" }
+                ],
+                reviews: [
+                    { user: "Diego Ferreyra", date: "10 Ago 2026", rating: 5, comment: "Excelente combo. Vino con todo instalado y listo para usar sin renegar con nada." },
+                    { user: "Julieta Varela", date: "26 Ago 2026", rating: 5, comment: "Una maza la máquina, la usamos para el local y anda de diez con el sistema de facturación." },
+                    { user: "Hernán G.", date: "03 Sep 2026", rating: 5, comment: "Muy buena atención, cumplieron con todo lo pactado." }
+                ]
+            },
+            {
+                id: 6,
+                title: "Combo 031 – GamerSSD i5",
+                basePrice: 589000,
+                discountPrice: 530000,
+                soldCount: "+830 vendidos",
+                rating: 5.0,
+                reviewsCount: 215,
+                imageUrl: "images/31.png",
+                description: "El equipo tope de gama de nuestro catálogo. Integra procesador i5, 16 GB de RAM y almacenamiento dual con SSD. Ideal para tareas de oficina, estudio, navegación y uso doméstico con gran estabilidad, diseñado para durar años al máximo nivel.",
+                specs: [
+                    { name: "Procesador", value: "Intel i5" },
+                    { name: "Monitor", value: "19 pulgadas" },
+                    { name: "Memoria RAM", value: "16 GB" },
+                    { name: "Disco", value: "500 GB HDD + 128 GB SSD" },
+                    { name: "Accesorios", value: "Teclado y Mouse" },
+                    { name: "Software", value: "Windows 11 + Paquete Office Completo" },
+                    { name: "Garantía", value: "3 meses" }
+                ],
+                reviews: [
+                    { user: "Romina Toledo", date: "04 Sep 2026", rating: 5, comment: "Un avión con el SSD y los 16GB. La atención de 10, me lo llevaron a domicilio sin vueltas y lo probaron." },
+                    { user: "Pablo Echeverría", date: "07 Sep 2026", rating: 5, comment: "La mejor inversión para trabajar desde casa. Muy recomendable la gente de CompuYa." },
+                    { user: "Natalia P.", date: "09 Sep 2026", rating: 5, comment: "Impresionante lo rápido que arranca. Muy conformes con el servicio." }
+                ]
+            }
+        ];
+
+        function formatPrice(num) {
+            return num.toLocaleString('es-AR').replace(/,/g, '.');
+        }
+
+        function renderProducts(items) {
+            const grid = document.getElementById('product-grid');
+            document.getElementById('result-count').innerText = `(${items.length} opciones)`;
+            
+            if(items.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500">No se encontraron productos con ese término.</div>`;
+                return;
+            }
+
+            grid.innerHTML = items.map(p => {
+                return `
+                    <div class="product-card" onclick="showDetail(${p.id})">
+                        <div class="relative bg-white p-2 flex justify-center items-center h-40 sm:h-60 border-b">
+                            <img src="${p.imageUrl}" alt="${p.title}" class="w-full h-full object-contain p-1">
+                            <span class="absolute top-2 left-2 bg-green-600 text-white text-[9px] sm:text-[10px] font-bold px-1.5 py-0.5 rounded">10% OFF</span>
+                        </div>
+                        <div class="p-2.5 sm:p-3 flex flex-col justify-between flex-grow">
+                            <div>
+                                <div class="text-[9px] sm:text-[10px] text-gray-400 mb-1">${p.soldCount}</div>
+                                <h2 class="text-xs sm:text-sm font-normal text-gray-800 mb-2 line-clamp-2">${p.title}</h2>
+                                <div class="mb-2">
+                                    <span class="text-[10px] sm:text-xs text-gray-400 line-through">$${formatPrice(p.basePrice)}</span>
+                                    <div class="flex flex-col sm:flex-row sm:items-baseline sm:space-x-1">
+                                        <span class="text-sm sm:text-lg font-bold text-gray-900">$${formatPrice(p.discountPrice)}</span>
+                                        <span class="text-[9px] sm:text-[10px] text-green-600 font-bold">Efectivo / Transf.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="text-[10px] sm:text-[11px] text-green-600 font-semibold mb-1 sm:mb-2">Envío e instalación gratis</div>
+                                <div class="flex items-center text-[9px] sm:text-[10px] text-yellow-500">
+                                    <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                                    <span class="text-gray-400 ml-1">(${p.reviewsCount})</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function filterProducts() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = products.filter(p => p.title.toLowerCase().includes(query) || p.description.toLowerCase().includes(query));
+            renderProducts(filtered);
+        }
+
+        let currentProductType = 'combo';
+
+        function setProductType(type) {
+            currentProductType = type;
+            const p = products.find(x => x.id === window.activeProductId);
+            if(!p) return;
+
+            const basePriceEl = document.getElementById('price-old');
+            const finalPriceEl = document.getElementById('price-final');
+            const btnCombo = document.getElementById('btn-combo');
+            const btnCpu = document.getElementById('btn-cpu');
+            const whatsappBtn = document.getElementById('whatsapp-btn');
+
+            let base = p.basePrice;
+            let disc = p.discountPrice;
+
+            if(type === 'cpu') {
+                base = base - 40000;
+                disc = disc - 40000;
+                btnCpu.className = "py-2 px-3 text-xs font-bold rounded border bg-blue-600 text-white shadow-xs transition";
+                btnCombo.className = "py-2 px-3 text-xs font-bold rounded border bg-white text-gray-800 hover:bg-gray-100 transition";
+                whatsappBtn.innerText = "Comprar Solo CPU por WhatsApp (Pago al recibir)";
+            } else {
+                btnCombo.className = "py-2 px-3 text-xs font-bold rounded border bg-blue-600 text-white shadow-xs transition";
+                btnCpu.className = "py-2 px-3 text-xs font-bold rounded border bg-white text-gray-800 hover:bg-gray-100 transition";
+                whatsappBtn.innerText = "Comprar Combo Completo por WhatsApp (Pago al recibir)";
+            }
+
+            basePriceEl.innerText = '$' + formatPrice(base);
+            finalPriceEl.innerText = '$' + formatPrice(disc);
+        }
+
+        function buyViaWhatsApp(id, type) {
+            const p = products.find(x => x.id === id);
+            if(!p) return;
+            let disc = p.discountPrice;
+            let title = p.title + " (Combo Completo)";
+            if(currentProductType === 'cpu') {
+                disc = disc - 40000;
+                title = p.title + " (Solo CPU)";
+            }
+            const text = `Hola! Quiero comprar el ${title} por \$${formatPrice(disc)} contado. ¿Cómo coordinamos la entrega e instalación?`;
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=` + encodeURIComponent(text));
+        }
+
+        // --- Funciones para la galería de imágenes ---
+        function openImageModal(imgUrl) {
+            document.getElementById('galleryImage').src = imgUrl;
+            document.getElementById('imageGalleryModal').classList.add('show');
+        }
+
+        function closeImageModal(e) {
+            if (!e || e.target.id === 'imageGalleryModal' || e.target.classList.contains('close-btn')) {
+                document.getElementById('imageGalleryModal').classList.remove('show');
+            }
+        }
+        // ---------------------------------------------
+
+        function showDetail(id, pushHistory = true) {
+            window.activeProductId = id;
+            currentProductType = 'combo';
+            const p = products.find(x => x.id === id);
+            if(pushHistory) {
+                history.pushState({view: 'detail', id: id}, '', '#producto-' + id);
+            }
+            if(!p) return;
+
+            const detailHTML = `
+                <button onclick="showCatalogView()" class="text-xs text-blue-600 hover:underline mb-4 font-semibold flex items-center">
+                    ← Volver al listado
+                </button>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <!-- Contenedor interactivo: Cursor lupa y clic para ampliar -->
+                        <div class="border rounded-lg p-2 flex justify-center items-center bg-white mb-4 h-80 md:h-96 cursor-zoom-in hover:shadow-md transition" onclick="openImageModal('${p.imageUrl}')" title="Hacé clic para ampliar">
+                            <img src="${p.imageUrl}" alt="${p.title}" class="w-full h-full object-contain">
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded border text-xs space-y-2">
+                            <div class="font-bold text-gray-800">Lo que tenés que saber de este equipo:</div>
+                            <p class="text-gray-600">${p.description}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-xs text-gray-500 uppercase tracking-wide">Nuevo | ${p.soldCount}</span>
+                        <h1 class="text-xl font-bold text-gray-900 mt-1 mb-2">${p.title}</h1>
+                        
+                        <div class="flex items-center space-x-2 mb-4">
+                            <div class="text-yellow-400 text-sm">★★★★★</div>
+                            <span class="text-xs text-blue-600 font-semibold">${p.rating} (${p.reviewsCount} opiniones)</span>
+                        </div>
+
+                        <!-- Selector de Versión: Combo Completo vs Solo CPU -->
+                        <div class="bg-gray-50 border p-3 rounded-lg mb-4">
+                            <label class="block text-xs font-bold text-gray-700 mb-2">Seleccioná la versión:</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button type="button" id="btn-combo" onclick="setProductType('combo')" class="py-2 px-3 text-xs font-bold rounded border bg-blue-600 text-white shadow-xs transition">
+                                    Combo Completo <br><span class="text-[10px] font-normal opacity-95">(PC + Monitor + Accesorios)</span>
+                                </button>
+                                <button type="button" id="btn-cpu" onclick="setProductType('cpu')" class="py-2 px-3 text-xs font-bold rounded border bg-white text-gray-800 hover:bg-gray-100 transition">
+                                    Solo CPU <br><span class="text-[10px] font-normal text-gray-500">(Gabinete solo, sin monitor)</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <span id="price-old" class="text-sm text-gray-400 line-through">$${formatPrice(p.basePrice)}</span>
+                            <div class="flex items-baseline space-x-2">
+                                <span id="price-final" class="text-3xl font-extrabold text-gray-900">$${formatPrice(p.discountPrice)}</span>
+                                <span class="text-sm text-green-600 font-bold">10% OFF Contado / Transferencia</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-green-50 border border-green-200 p-3 rounded text-xs text-green-800 mb-6">
+                            <span class="font-bold">ENVÍO E INSTALACIÓN GRATIS A DOMICILIO.</span> PAGÁS DESPUÉS DE INSTALAR: Abonás recién cuando tengas todo funcionando en tu casa. Sin seña ni anticipo.
+                        </div>
+
+                        <div class="space-y-3 mb-6">
+                            <button id="whatsapp-btn" onclick="buyViaWhatsApp(${p.id}, 'combo')" class="w-full ml-blue text-white font-bold py-3 px-4 rounded text-sm hover:bg-blue-600 transition shadow">
+                                Comprar Combo Completo por WhatsApp (Pago al recibir)
+                            </button>
+                        </div>
+
+                        <div class="border-t pt-4">
+                            <h3 class="font-bold text-sm text-gray-800 mb-3">Características principales</h3>
+                            <div class="border rounded text-xs divide-y">
+                                ${p.specs.map(s => `
+                                    <div class="flex justify-between p-2 bg-gray-50">
+                                        <span class="font-medium text-gray-600">${s.name}</span>
+                                        <span class="font-bold text-gray-800">${s.value}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección Opiniones -->
+                <div class="mt-12 border-t pt-8">
+                    <h3 class="text-lg font-bold text-gray-800 mb-6">Opiniones sobre el producto</h3>
+                    <div class="space-y-4">
+                        ${p.reviews.map(r => `
+                            <div class="border-b pb-4">
+                                <div class="flex items-center justify-between mb-1">
+                                    <div class="text-xs font-bold text-gray-800">${r.user}</div>
+                                    <div class="text-[10px] text-gray-400">${r.date}</div>
+                                </div>
+                                <div class="text-yellow-400 text-xs mb-1">★★★★★</div>
+                                <p class="text-xs text-gray-600">${r.comment}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('catalog-view').classList.add('hidden');
+            const detailView = document.getElementById('detail-view');
+            detailView.innerHTML = detailHTML;
+            detailView.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showCatalogView(pushHistory = true) {
+            if(pushHistory) {
+                history.pushState({view: 'catalog'}, '', '#catalogo');
+            }
+            document.getElementById('detail-view').classList.add('hidden');
+            document.getElementById('catalog-view').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.addEventListener('popstate', (event) => {
+            if (event.state && event.state.view === 'detail') {
+                showDetail(event.state.id, false);
+            } else {
+                showCatalogView(false);
+            }
+        });
+
+        function openWarrantyModal() {
+            document.getElementById('warrantyModal').classList.add('show');
+        }
+
+        function closeWarrantyModal(e) {
+            if (!e || e.target.id === 'warrantyModal' || e.target.classList.contains('close-button')) {
+                document.getElementById('warrantyModal').classList.remove('show');
+            }
+        }
+
+        window.onload = () => renderProducts(products);
+    </script>
+</body>
+</html>
